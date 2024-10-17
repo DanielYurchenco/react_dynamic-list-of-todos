@@ -7,6 +7,7 @@ interface TodoProps {
   openModal: (todo: Todo) => void;
   activeTodoId: number | null;
   onTodoClick: (id: number) => void;
+  modalWindow: boolean;
 }
 
 export const TodoList: React.FC<TodoProps> = ({
@@ -14,6 +15,7 @@ export const TodoList: React.FC<TodoProps> = ({
   openModal,
   activeTodoId,
   onTodoClick,
+  modalWindow,
 }) => {
   return (
     <table className="table is-narrow is-fullwidth">
@@ -31,7 +33,7 @@ export const TodoList: React.FC<TodoProps> = ({
           <tr
             data-cy="todo"
             className={cn('', {
-              'has-background-info-light': activeTodoId === t.id,
+              'has-background-info-light': activeTodoId === t.id && modalWindow,
             })}
             key={t.id}
             onClick={() => onTodoClick(t.id)}
@@ -44,7 +46,16 @@ export const TodoList: React.FC<TodoProps> = ({
                 </span>
               )}
             </td>
-            <td className="is-vcentered">{t.title}</td>
+            <td className="is-vcentered is-expanded">
+              <p
+                className={cn('', {
+                  'has-text-danger': !t.completed,
+                  'has-text-success': t.completed,
+                })}
+              >
+                {t.title}
+              </p>
+            </td>
             <td className="has-text-right is-vcentered">
               <button
                 data-cy="selectButton"
@@ -54,8 +65,8 @@ export const TodoList: React.FC<TodoProps> = ({
                 <span className="icon">
                   <i
                     className={cn('far', {
-                      'fa-eye': activeTodoId !== t.id,
-                      'fa-eye-slash': activeTodoId === t.id,
+                      'fa-eye': activeTodoId !== t.id || !modalWindow,
+                      'fa-eye-slash': activeTodoId === t.id && modalWindow,
                     })}
                   />
                 </span>

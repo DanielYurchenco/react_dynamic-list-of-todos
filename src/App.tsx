@@ -17,6 +17,7 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
   const [activeTodoId, setActiveTodoId] = useState<number | null>(null);
+  const [modalWindow, setModalWindow] = useState(true);
 
   const handleSelectChange = useCallback((newValue: string) => {
     setFilter(newValue);
@@ -32,10 +33,12 @@ export const App: React.FC = () => {
 
   const openModal = useCallback((todo: Todo) => {
     setSelectedTodo(todo);
+    setModalWindow(true);
   }, []);
 
   const closeModal = () => {
     setSelectedTodo(null);
+    setModalWindow(false);
   };
 
   const handleClickId = useCallback((todoId: number) => {
@@ -92,6 +95,7 @@ export const App: React.FC = () => {
                   openModal={openModal}
                   activeTodoId={activeTodoId}
                   onTodoClick={handleClickId}
+                  modalWindow={modalWindow}
                 />
               )}
             </div>
