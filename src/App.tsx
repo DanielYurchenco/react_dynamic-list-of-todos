@@ -34,9 +34,9 @@ export const App: React.FC = () => {
     setSelectedTodo(todo);
   }, []);
 
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     setSelectedTodo(null);
-  }, []);
+  };
 
   const handleClickId = useCallback((todoId: number) => {
     setActiveTodoId(todoId);
@@ -88,10 +88,10 @@ export const App: React.FC = () => {
 
               {!isLoading && todos.length > 0 && (
                 <TodoList
-                  todo={filteredTodos}
-                  onTodoClick={openModal}
+                  todos={filteredTodos}
+                  openModal={openModal}
                   activeTodoId={activeTodoId}
-                  setActiveTodoId={handleClickId}
+                  onTodoClick={handleClickId}
                 />
               )}
             </div>

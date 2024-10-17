@@ -3,17 +3,17 @@ import { Todo } from '../../types/Todo';
 import cn from 'classnames';
 
 interface TodoProps {
-  todo: Todo[];
-  onTodoClick: (todo: Todo) => void;
+  todos: Todo[];
+  openModal: (todo: Todo) => void;
   activeTodoId: number | null;
-  setActiveTodoId: (id: number) => void;
+  onTodoClick: (id: number) => void;
 }
 
 export const TodoList: React.FC<TodoProps> = ({
-  todo,
-  onTodoClick,
+  todos,
+  openModal,
   activeTodoId,
-  setActiveTodoId,
+  onTodoClick,
 }) => {
   return (
     <table className="table is-narrow is-fullwidth">
@@ -27,14 +27,14 @@ export const TodoList: React.FC<TodoProps> = ({
       </thead>
 
       <tbody>
-        {todo.map(t => (
+        {todos.map(t => (
           <tr
             data-cy="todo"
             className={cn('', {
               'has-background-info-light': activeTodoId === t.id,
             })}
             key={t.id}
-            onClick={() => setActiveTodoId(t.id)}
+            onClick={() => onTodoClick(t.id)}
           >
             <td className="is-vcentered">{t.id}</td>
             <td className="is-vcentered">
@@ -49,7 +49,7 @@ export const TodoList: React.FC<TodoProps> = ({
               <button
                 data-cy="selectButton"
                 className="button"
-                onClick={() => onTodoClick(t)}
+                onClick={() => openModal(t)}
               >
                 <span className="icon">
                   <i

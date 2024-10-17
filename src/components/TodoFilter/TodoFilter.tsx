@@ -15,7 +15,7 @@ export const TodoFilter: React.FC<SelectComponentProps> = ({
 }) => {
   const [selectedValue, setSelectedValue] = useState<string>('all');
 
-  const handlChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
 
     setSelectedValue(value);
@@ -33,7 +33,7 @@ export const TodoFilter: React.FC<SelectComponentProps> = ({
           <select
             data-cy="statusSelect"
             value={selectedValue}
-            onChange={handlChange}
+            onChange={handleChange}
           >
             <option value="all">All</option>
             <option value="active">Active</option>

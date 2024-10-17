@@ -3,6 +3,7 @@ import { Loader } from '../Loader';
 import { Todo } from '../../types/Todo';
 import { getUser } from '../../api';
 import { User } from '../../types/User';
+import cn from 'classnames';
 
 interface TodoModalProps {
   todo: Todo | null;
@@ -43,12 +44,7 @@ export const TodoModal: React.FC<TodoModalProps> = ({ todo, onClose }) => {
               Todo #{todo.id}
             </div>
             {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-            <button
-              type="button"
-              className="delete"
-              data-cy="modal-close"
-              onClick={onClose}
-            />
+            <button type="button" className="delete" data-cy="modal-close" onClick={onClose}/>
           </header>
 
           <div className="modal-card-body">
@@ -57,8 +53,10 @@ export const TodoModal: React.FC<TodoModalProps> = ({ todo, onClose }) => {
             </p>
             <p className="block" data-cy="modal-user">
               <strong
-                className={
-                  todo.completed ? 'has-text-success' : 'has-text-danger'
+                className={cn('',{
+                  'has-text-success': todo.completed,
+                  'has-text-danger': !todo.completed
+                })
                 }
               >
                 {todo.completed ? 'Done' : 'Planned'}
